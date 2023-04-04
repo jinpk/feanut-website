@@ -471,12 +471,6 @@ export default function MainTemplate(props: MainTemplateProps) {
         start = 0;
       }
 
-      if (start === 100) {
-        thirdCollectionRef.current.style.transition = ``;
-      } else {
-        thirdCollectionRef.current.style.transition = `transform 0.1s`;
-      }
-
       if (secondCollectionRef.current) {
         secondCollectionRef.current.style.transform = `matrix(1,0,0,1,${start},0)`;
       }
@@ -496,20 +490,6 @@ export default function MainTemplate(props: MainTemplateProps) {
           start = 100;
         }
 
-        console.log(thirdCollectionRef.current.style.transition);
-        if (start === 100) {
-          if (
-            thirdCollectionRef.current.style.transition === "transform 0.1s"
-          ) {
-            thirdCollectionRef.current.style.transition = ``;
-          }
-        } else {
-          if (
-            thirdCollectionRef.current.style.transition !== "transform 0.1s"
-          ) {
-            thirdCollectionRef.current.style.transition = `transform 0.1s`;
-          }
-        }
         thirdCollectionRef.current.style.transform = `matrix(1,0,0,1,-${start},0)`;
       }
       start += 1;
