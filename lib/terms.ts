@@ -5,13 +5,13 @@ import html from "remark-html";
 import matter from "gray-matter";
 import { Policy } from "@/interfaces/policy";
 
-export async function getPrivacyData(): Promise<Policy[]> {
-  const filenames = readdirSync("docs/privacy", "utf8");
+export async function getTerms(): Promise<Policy[]> {
+  const filenames = readdirSync("docs/terms", "utf8");
 
   const data: Policy[] = [];
   for await (let filename of filenames) {
     const fileContents = readFileSync(
-      path.join("docs/privacy", filename),
+      path.join("docs/terms", filename),
       "utf-8"
     );
     const matterResult = matter(fileContents);

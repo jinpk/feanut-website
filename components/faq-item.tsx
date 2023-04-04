@@ -32,14 +32,15 @@ const Question = styled.span`
   font-family: ${(props) => props.theme.fonts.pretendar.semiBold};
 `;
 
-const Content = styled.div<{ opened: boolean }>`
-  max-height: ${(props) => (props.opened ? "100vw" : "0px")};
+const Content = styled.div<{ opened: string }>`
+  max-height: ${(props) => (props.opened === "true" ? "100vw" : "0px")};
   transition: all 1s ease-in-out;
   overflow: hidden;
 `;
 
-const Icon = styled(Image)<{ opened: boolean }>`
-  transform: ${(props) => (props.opened ? "rotate(180deg)" : "rotate(0deg)")};
+const Icon = styled(Image)<{ opened: string }>`
+  transform: ${(props) =>
+    props.opened === "true" ? "rotate(180deg)" : "rotate(0deg)"};
   transition: all 0.5s ease;
 `;
 
@@ -55,14 +56,14 @@ export const FaqItem = (props: FaqItemProps) => {
       <Header onClick={handleClick}>
         <Question>{props.title}</Question>
         <Icon
-          opened={opened}
+          opened={String(opened)}
           width={14}
           height={28}
           alt="Down"
           src="/down.svg"
         />
       </Header>
-      <Content opened={opened}>
+      <Content opened={String(opened)}>
         <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
       </Content>
     </Container>

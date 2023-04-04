@@ -5,16 +5,18 @@ import {
 } from "@/components/button";
 import { FaqItem } from "@/components/faq-item";
 import { Footer } from "@/components/footer";
+import { PollCard } from "@/components/poll-card";
 import { TopBar } from "@/components/top-bar";
 import useDocumentScroll from "@/hooks/use-document-scroll";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Faq } from "@/interfaces/docs";
 import { InViewProps } from "@/interfaces/emotion";
+import { Poll } from "@/interfaces/poll";
 import constants from "@/lib/constants";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 /** Main Banner */
@@ -170,6 +172,7 @@ const Summary = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 6.5em;
 `;
 
 const FeanutBackground = styled.div`
@@ -268,12 +271,20 @@ const Desc = styled.div`
   color: ${(props) => props.theme.colors.black};
 `;
 
+const CollectionList = styled.div`
+  display: flex;
+  min-width: 100vw;
+  margin-top: 1.875em;
+  overflow: hidden;
+`;
+
 /** Pull */
 const Pull = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 9.375em;
+  padding-top: 7.8125em;
 `;
 
 const PullWrap = styled.div<InViewProps>`
@@ -370,6 +381,7 @@ const FaqList = styled.div`
 
 type MainTemplateProps = {
   faqs: Faq[];
+  polls: Poll[];
 };
 
 export default function MainTemplate(props: MainTemplateProps) {
@@ -386,8 +398,86 @@ export default function MainTemplate(props: MainTemplateProps) {
   const theme = useTheme();
   const smMatch = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
+  const firstCollectionRef = useRef<HTMLDivElement>(null);
+  const secondCollectionRef = useRef<HTMLDivElement>(null);
+  const thirdCollectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setRendered(true);
+  }, []);
+
+  useEffect(() => {
+    let start = 0;
+    let cw = firstCollectionRef.current?.clientWidth || 0;
+    let iv = setInterval(() => {
+      if (start >= (cw - 255) / 3) {
+        start = 0;
+      }
+
+      if (firstCollectionRef.current) {
+        firstCollectionRef.current.style.transform = `matrix(1,0,0,1,-${start},0)`;
+      }
+      start += 1;
+    }, 10);
+    return () => {
+      clearInterval(iv);
+    };
+  }, []);
+
+  useEffect(() => {
+    let start = 0;
+    let cw = secondCollectionRef.current?.clientWidth || 0;
+    let iv = setInterval(() => {
+      if (start >= (cw - 255) / 3) {
+        start = 0;
+      }
+
+      if (start === 100) {
+        thirdCollectionRef.current.style.transition = ``;
+      } else {
+        thirdCollectionRef.current.style.transition = `transform 0.1s`;
+      }
+
+      if (secondCollectionRef.current) {
+        secondCollectionRef.current.style.transform = `matrix(1,0,0,1,${start},0)`;
+      }
+      start += 1;
+    }, 10);
+    return () => {
+      clearInterval(iv);
+    };
+  }, []);
+
+  useEffect(() => {
+    let start = 100;
+    let cw = thirdCollectionRef.current?.clientWidth || 0;
+    let iv = setInterval(() => {
+      if (thirdCollectionRef.current) {
+        if (start >= (cw - 255) / 3) {
+          start = 100;
+        }
+
+        console.log(thirdCollectionRef.current.style.transition);
+        if (start === 100) {
+          if (
+            thirdCollectionRef.current.style.transition === "transform 0.1s"
+          ) {
+            thirdCollectionRef.current.style.transition = ``;
+          }
+        } else {
+          if (
+            thirdCollectionRef.current.style.transition !== "transform 0.1s"
+          ) {
+            thirdCollectionRef.current.style.transition = `transform 0.1s`;
+          }
+        }
+        thirdCollectionRef.current.style.transform = `matrix(1,0,0,1,-${start},0)`;
+      }
+      start += 1;
+    }, 10);
+    return () => {
+      clearInterval(iv);
+    };
   }, []);
 
   return (
@@ -538,6 +628,42 @@ export default function MainTemplate(props: MainTemplateProps) {
           </span>
         </Title>
         <Desc>친구들과 서로 투표하고 칭찬하며 더 가까워져 볼까요?</Desc>
+
+        <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
+          {props.polls.map((x, i) => {
+            return (
+              <PollCard
+                key={i.toString()}
+                title={x.title}
+                src={`/card-${x.emotion}.svg`}
+              />
+            );
+          })}
+        </CollectionList>
+
+        <CollectionList ref={secondCollectionRef}>
+          {props.polls.map((x, i) => {
+            return (
+              <PollCard
+                key={i.toString()}
+                title={x.title}
+                src={`/card-${x.emotion}.svg`}
+              />
+            );
+          })}
+        </CollectionList>
+
+        <CollectionList ref={thirdCollectionRef}>
+          {props.polls.map((x, i) => {
+            return (
+              <PollCard
+                key={i.toString()}
+                title={x.title}
+                src={`/card-${x.emotion}.svg`}
+              />
+            );
+          })}
+        </CollectionList>
       </Collection>
       {/** Pull */}
       <Pull>
