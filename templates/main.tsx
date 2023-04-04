@@ -102,8 +102,14 @@ const Title = styled.h1`
 
   margin-top: 0.4375em;
 
+  br {
+    display: none;
+  }
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     font-size: 1.625em;
+    br {
+      display: block;
+    }
   }
 
   .decoration {
@@ -149,6 +155,7 @@ const Store = styled.div<InViewProps>`
 const AppUsages = styled.div`
   display: flex;
   margin-top: 3.125em;
+  overflow: hidden;
 `;
 
 const AppUsage = styled.div<InViewProps>`
@@ -162,6 +169,16 @@ const AppUsage = styled.div<InViewProps>`
   opacity: ${(props) => (props.inView ? 1 : 0)};
   transform: ${(props) =>
     props.inView ? "translateY(0em)" : "translateY(20em)"};
+
+  img {
+    object-fit: contain;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin: 0px 0.3em;
+    width: 9.25em;
+    height: 18.75em;
+  }
 `;
 
 /** Second Banner */
@@ -180,6 +197,12 @@ const FeanutBackground = styled.div`
   width: 70%;
   height: calc(100vw / 3);
   left: -40%;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    left: -30em;
+    width: 48em;
+    height: 25em;
+  }
 `;
 
 const SummaryContent = styled.div`
@@ -190,6 +213,11 @@ const SummaryContent = styled.div`
   padding-top: 7.8125em;
   padding-bottom: 6.5em;
   max-width: 52.1875em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const SummaryText = styled.span<InViewProps & { seq: string }>`
@@ -253,6 +281,11 @@ const Video = styled.div`
     position: absolute;
     width: 4.6em;
     height: 4.6em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    width: 15.125em;
+    height: 22.25em;
   }
 `;
 
@@ -396,7 +429,6 @@ export default function MainTemplate(props: MainTemplateProps) {
   const pullScreenInView = useInView();
 
   const theme = useTheme();
-  const smMatch = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
   const firstCollectionRef = useRef<HTMLDivElement>(null);
   const secondCollectionRef = useRef<HTMLDivElement>(null);
@@ -404,6 +436,13 @@ export default function MainTemplate(props: MainTemplateProps) {
 
   useEffect(() => {
     setRendered(true);
+    document.body.style.overflow = "hidden";
+    let tm = setTimeout(() => {
+      document.body.style.overflow = "auto";
+    }, 2500);
+    return () => {
+      clearTimeout(tm);
+    };
   }, []);
 
   useEffect(() => {
@@ -492,23 +531,12 @@ export default function MainTemplate(props: MainTemplateProps) {
         </LogoWrap>
         <TitleWrap inView={rendered}>
           <SubTitle>요즘 화젯거리 주제!</SubTitle>
-          {smMatch && (
-            <Title>
-              <span>
-                친구들과 함께하는
-                <br />
-                <span className="decoration">소셜 투표 서비스</span>
-              </span>
-            </Title>
-          )}
-          {!smMatch && (
-            <Title>
-              <span>
-                친구들과 함께하는{" "}
-                <span className="decoration">소셜 투표 서비스</span>
-              </span>
-            </Title>
-          )}
+          <Title>
+            <span>
+              친구들과 함께하는 <br />
+              <span className="decoration">소셜 투표 서비스</span>
+            </span>
+          </Title>
         </TitleWrap>
         <Store inView={rendered}>
           <a href={constants.dynamicURLLanding} target="_blank">
@@ -527,7 +555,7 @@ export default function MainTemplate(props: MainTemplateProps) {
               alt="Play Store"
             />
           </a>
-          <StyledButton>피넛 다운로드</StyledButton>
+          <StyledButtonMedium>앱 열기</StyledButtonMedium>
         </Store>
         <AppUsages>
           <AppUsage inView={rendered}>
@@ -615,7 +643,7 @@ export default function MainTemplate(props: MainTemplateProps) {
           </div>
         </SummaryContent>
         <a href={constants.dynamicURLLanding} target="_blank">
-          <StyledButtonMedium>피넛 다운로드</StyledButtonMedium>
+          <StyledButtonMedium>앱 열기</StyledButtonMedium>
         </a>
       </Summary>
       {/** Collection */}

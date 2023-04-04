@@ -1,6 +1,6 @@
 ---
-title: 사업 제휴 및 비지니스 문의
-sequence: 7
+title: 피넛코인을 구매하는 방법은?
+sequence: 6
 ---
 
 hahahahahahahahaha
