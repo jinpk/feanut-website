@@ -276,11 +276,57 @@ const Pull = styled.section`
   padding: 9.375em;
 `;
 
-const PullWrap = styled.div`
+const PullWrap = styled.div<InViewProps>`
   position: relative;
   width: 26.125em;
   height: 30.75em;
   margin-top: 3.15em;
+
+  transition: transform 0.5s;
+  transform: ${(props) =>
+    props.inView ? "matrix(1,0,0,1,0,0)" : "matrix(1,0,0,1,0,100)"};
+`;
+
+const PullCommentImage = styled.div`
+  position: absolute;
+  width: 13.125em;
+  height: 2.875em;
+  bottom: 8em;
+  left: -8em;
+  img {
+    object-fit: contain;
+  }
+`;
+const PullSecretImage = styled.div`
+  position: absolute;
+  width: 4.5625em;
+  height: 4.5625em;
+  top: 3em;
+  right: -1.5625em;
+  img {
+    object-fit: contain;
+  }
+`;
+
+const PullLockImage = styled.div`
+  position: absolute;
+  width: 3.3125em;
+  height: 3.3125em;
+  top: 1em;
+  right: -3.3125em;
+  img {
+    object-fit: contain;
+  }
+`;
+const PullHandImage = styled.div`
+  position: absolute;
+  width: 5.9375em;
+  height: 5.9375em;
+  bottom: -1.5em;
+  left: 2.07em;
+  img {
+    object-fit: contain;
+  }
 `;
 
 /** Get In Touch */
@@ -335,6 +381,8 @@ export default function MainTemplate(props: MainTemplateProps) {
   const summaryThirdView = useInView();
   const summaryFourView = useInView();
 
+  const pullScreenInView = useInView();
+
   const theme = useTheme();
   const smMatch = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
@@ -349,7 +397,7 @@ export default function MainTemplate(props: MainTemplateProps) {
       <Banner>
         <LogoWrap inView={rendered}>
           <Logo>
-            <Image src="/logo.svg" alt="Feanut Logo" fill />
+            <Image priority src="/logo.svg" alt="Feanut Logo" fill />
           </Logo>
         </LogoWrap>
         <TitleWrap inView={rendered}>
@@ -393,13 +441,28 @@ export default function MainTemplate(props: MainTemplateProps) {
         </Store>
         <AppUsages>
           <AppUsage inView={rendered}>
-            <Image src="/app-usage-left.png" fill alt="App Usage Left" />
+            <Image
+              priority
+              src="/app-usage-left.png"
+              fill
+              alt="App Usage Left"
+            />
           </AppUsage>
           <AppUsage inView={rendered}>
-            <Image src="/app-usage-center.png" fill alt="App Usage Center" />
+            <Image
+              priority
+              src="/app-usage-center.png"
+              fill
+              alt="App Usage Center"
+            />
           </AppUsage>
           <AppUsage inView={rendered}>
-            <Image src="/app-usage-right.png" fill alt="App Usage Right" />
+            <Image
+              priority
+              src="/app-usage-right.png"
+              fill
+              alt="App Usage Right"
+            />
           </AppUsage>
         </AppUsages>
       </Banner>
@@ -489,8 +552,20 @@ export default function MainTemplate(props: MainTemplateProps) {
           누가 나를 투표했는지 확인 해 보세요!
           <br />이 기회에 친구와 더 가까워질 수도 있잖아요
         </Desc>
-        <PullWrap>
+        <PullWrap ref={pullScreenInView.ref} inView={pullScreenInView.inView}>
           <Image src="/pull.png" alt="Pull" fill />
+          <PullCommentImage>
+            <Image src="/pull-comment.png" alt="Pull Comment" fill />
+          </PullCommentImage>
+          <PullLockImage>
+            <Image src="/pull-lock.png" alt="Pull Lock" fill />
+          </PullLockImage>
+          <PullSecretImage>
+            <Image src="/pull-secret.png" alt="Pull Secret" fill />
+          </PullSecretImage>
+          <PullHandImage>
+            <Image src="/pull-hand.png" alt="Pull Hand" fill />
+          </PullHandImage>
         </PullWrap>
       </Pull>
       {/** GetInTouch */}
