@@ -1,10 +1,9 @@
+import { Faq } from "@/interfaces/docs";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useCallback, useState } from "react";
 
-type FaqItemProps = PropsWithChildren<{
-  question: string;
-}>;
+type FaqItemProps = PropsWithChildren<{}> & Faq;
 
 const Container = styled.div`
   display: flex;
@@ -33,14 +32,39 @@ const Question = styled.span`
   font-family: ${(props) => props.theme.fonts.pretendar.semiBold};
 `;
 
+const Content = styled.div<{ opened: boolean }>`
+  max-height: ${(props) => (props.opened ? "100vw" : "0px")};
+  transition: all 1s ease-in-out;
+  overflow: hidden;
+`;
+
+const Icon = styled(Image)<{ opened: boolean }>`
+  transform: ${(props) => (props.opened ? "rotate(180deg)" : "rotate(0deg)")};
+  transition: all 0.5s ease;
+`;
+
 export const FaqItem = (props: FaqItemProps) => {
+  const [opened, setOpened] = useState(false);
+
+  const handleClick = useCallback(() => {
+    setOpened((prev) => !prev);
+  }, []);
+
   return (
     <Container>
-      <Header>
-        <Question>{props.question}</Question>
-
-        <Image width={14} height={28} alt="Down" src="/down.svg" />
+      <Header onClick={handleClick}>
+        <Question>{props.title}</Question>
+        <Icon
+          opened={opened}
+          width={14}
+          height={28}
+          alt="Down"
+          src="/down.svg"
+        />
       </Header>
+      <Content opened={opened}>
+        <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
+      </Content>
     </Container>
   );
 };

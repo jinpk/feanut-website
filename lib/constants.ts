@@ -1,5 +1,5 @@
 const constants = {
-  dynamicURLLanding: "https://links.feanut.com/landing",
+  dynamicURLLanding: "https://feanut.page.link/landing",
   feanutInstagramURL: "https://instagram.com/feanut_official",
 };
 

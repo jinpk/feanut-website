@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { TopBar } from "@/components/top-bar";
 import useDocumentScroll from "@/hooks/use-document-scroll";
 import useMediaQuery from "@/hooks/use-media-query";
+import { Faq } from "@/interfaces/docs";
 import { InViewProps } from "@/interfaces/emotion";
 import constants from "@/lib/constants";
 import { useTheme } from "@emotion/react";
@@ -321,7 +322,11 @@ const FaqList = styled.div`
   max-width: 53.5em;
 `;
 
-export default function MainTemplate() {
+type MainTemplateProps = {
+  faqs: Faq[];
+};
+
+export default function MainTemplate(props: MainTemplateProps) {
   const inScroll = useDocumentScroll();
   const [rendered, setRendered] = useState(false);
 
@@ -510,13 +515,9 @@ export default function MainTemplate() {
       <Faq>
         <Title>자주 묻는 질문에 대한 답변</Title>
         <FaqList>
-          <FaqItem question="feanut 서비스란?" />
-          <FaqItem question="친구를 투표하는 방법은?" />
-          <FaqItem question="나를 투표한 친구를 확인하는 방법은?" />
-          <FaqItem question="친구를 추가하는 방법은?" />
-          <FaqItem question="서비스 이용 가격은?" />
-          <FaqItem question="피넛코인이란?" />
-          <FaqItem question="그 외 비즈니스 문의" />
+          {props.faqs.map((x, i) => {
+            return <FaqItem {...x} key={i} />;
+          })}
         </FaqList>
       </Faq>
 
