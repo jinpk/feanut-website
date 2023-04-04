@@ -1,4 +1,4 @@
-import { Breakpoints, Colors, FeanutTheme } from "@/interfaces/theme";
+import { Breakpoints, Colors, FeanutTheme, Fonts } from "@/interfaces/theme";
 
 const colors: Colors = {
   primary: "#FF9900",
@@ -18,9 +18,18 @@ const breakpoints: Breakpoints = {
   lg: "90em",
 };
 
+const fonts: Fonts = {
+  pretendar: {
+    bold: "Pretendard-Bold",
+    medium: "Pretendard-Medium",
+    semiBold: "Pretendard-SemiBold",
+  },
+};
+
 const theme: FeanutTheme = {
   colors,
   breakpoints,
+  fonts,
 };
 
 export default theme;

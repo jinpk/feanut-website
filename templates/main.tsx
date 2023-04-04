@@ -1,14 +1,22 @@
-import { StyledButton } from "@/components/button";
+import {
+  StyledButton,
+  StyledButtonMedium,
+  StyledButtonMediumWhite,
+} from "@/components/button";
+import { FaqItem } from "@/components/faq-item";
+import { Footer } from "@/components/footer";
 import { TopBar } from "@/components/top-bar";
+import useDocumentScroll from "@/hooks/use-document-scroll";
 import useMediaQuery from "@/hooks/use-media-query";
 import { InViewProps } from "@/interfaces/emotion";
 import constants from "@/lib/constants";
-import { css, useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
+import { Fragment, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const Container = styled.main``;
+/** Main Banner */
 
 const Banner = styled.section`
   display: flex;
@@ -37,7 +45,7 @@ const LogoWrap = styled.div<InViewProps>`
     border-radius: 10px;
   }
 
-  transition: transform 2s;
+  transition: transform 1.5s;
   transition-delay: 0.3s;
   transform: ${(props) =>
     props.inView ? "scale(1) translateY(0px)" : "scale(5) translateY(50%)"};
@@ -59,15 +67,13 @@ const TitleWrap = styled.div<InViewProps>`
   align-items: center;
 
   transition: transform 1s;
-  transition-delay: 1.3s;
+  transition-delay: 1s;
   transform: ${(props) =>
     props.inView ? "scale(1) translateY(0px)" : "scale(0) translateY(10em)"};
 `;
 
 const SubTitle = styled.span`
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 600;
+  font-family: ${(props) => props.theme.fonts.pretendar.semiBold};
   font-size: 1.125em;
   display: flex;
   align-items: center;
@@ -82,9 +88,8 @@ const SubTitle = styled.span`
 `;
 
 const Title = styled.h1`
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: ${(props) => props.theme.fonts.pretendar.bold};
+
   font-size: 2.25em;
   /* identical to box height */
 
@@ -97,6 +102,22 @@ const Title = styled.h1`
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     font-size: 1.625em;
   }
+
+  .decoration {
+    position: relative;
+    :after {
+      border-bottom: 10px solid ${(props) => props.theme.colors.primary + "BF"};
+      border-radius: 20px;
+      position: absolute;
+      bottom: 0px;
+      z-index: 1;
+      right: 0px;
+      left: 0px;
+      display: block;
+      transform: rotate(-1deg);
+      content: "";
+    }
+  }
 `;
 
 const Store = styled.div<InViewProps>`
@@ -108,10 +129,6 @@ const Store = styled.div<InViewProps>`
     display: none;
   }
 
-  transition: opacity 1s;
-  transition-delay: 2.3s;
-  opacity: ${(props) => (props.inView ? 1 : 0)};
-
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     a {
       display: none;
@@ -120,6 +137,10 @@ const Store = styled.div<InViewProps>`
       display: flex;
     }
   }
+
+  transition: opacity 1s;
+  transition-delay: 2s;
+  opacity: ${(props) => (props.inView ? 1 : 0)};
 `;
 
 const AppUsages = styled.div`
@@ -140,52 +161,213 @@ const AppUsage = styled.div<InViewProps>`
     props.inView ? "translateY(0em)" : "translateY(20em)"};
 `;
 
-const TextLineWrap = styled.span`
-  text-decoration: underline;
-  text-decoration-color: ${(props) => props.theme.colors.primary};
+/** Second Banner */
+
+const Summary = styled.section`
+  position: relative;
+  padding: 7.8125em 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-/** margin-left: 0.3em;
+const FeanutBackground = styled.div`
+  position: absolute;
+  width: 70%;
+  height: calc(100vw / 3);
+  left: -40%;
+`;
+
+const SummaryContent = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-top: 7.8125em;
+  padding-bottom: 6.5em;
+  max-width: 52.1875em;
+`;
+
+const SummaryText = styled.span<InViewProps & { seq: string }>`
   position: relative;
-  :after {
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    display: block;
-    content: "";
+
+  display: block;
+  font-size: 1.5em;
+  margin-top: 3.3em;
+  font-family: ${(props) => props.theme.fonts.pretendar.semiBold};
+  :first-of-type {
+    margin-top: 0em;
+  }
+  span {
+    font-family: ${(props) => props.theme.fonts.pretendar.bold};
+    color: ${(props) => props.theme.colors.primary};
+  }
+
+  :before {
+    content: "${(props) => props.seq}";
     position: absolute;
-    border-bottom: 10px solid ${(props) => props.theme.colors.primary}BF;
-    transform: rotate(-1deg);
-    border-radius: 20px;
-  } */
+    font-size: 15px;
+    left: -1.875em;
+    top: -0.125em;
+  }
+
+  transition: transform 0.5s;
+  transform: ${(props) =>
+    props.inView ? "matrix(1,0,0,1,0,0)" : "matrix(1,0,0,1,0,50)"};
+`;
+
+const Video = styled.div`
+  position: relative;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.colors.black};
+  width: 21.5625em;
+  height: 31.8125em;
+
+  img {
+    object-fit: contain;
+  }
+
+  .comment1 {
+    top: 6em;
+    right: -40%;
+    position: absolute;
+    width: 12.5em;
+    height: 12.5em;
+  }
+
+  .comment2 {
+    bottom: 0;
+    left: -25%;
+    position: absolute;
+    width: 12.5em;
+    height: 12.5em;
+  }
+
+  .fire {
+    left: 4.6em;
+    top: -2em;
+    position: absolute;
+    width: 4.6em;
+    height: 4.6em;
+  }
+`;
+
+/** Collection */
+
+const Collection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Desc = styled.div`
+  font-family: ${(props) => props.theme.fonts.pretendar.medium};
+  font-size: 1.25em;
+  text-align: center;
+  color: ${(props) => props.theme.colors.black};
+`;
+
+/** Pull */
+const Pull = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9.375em;
+`;
+
+const PullWrap = styled.div`
+  position: relative;
+  width: 26.125em;
+  height: 30.75em;
+  margin-top: 3.15em;
+`;
+
+/** Get In Touch */
+const GetInTouch = styled.section`
+  width: 100%;
+  min-height: 21.5625em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const GetInTouchContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 10;
+`;
+
+/** Faq */
+const Faq = styled.section`
+  padding-top: 7.825em;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-bottom: 7.8em;
+`;
+
+const FaqList = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+  max-width: 53.5em;
+`;
+
 export default function MainTemplate() {
-  const logoInView = useInView();
-  const titleInView = useInView();
-  const storeInView = useInView();
-  const appUsageLeftView = useInView();
-  const appUsageCenterView = useInView();
-  const appUsageRightView = useInView();
+  const inScroll = useDocumentScroll();
+  const [rendered, setRendered] = useState(false);
+
+  const summaryFirstView = useInView();
+  const summarySecondView = useInView();
+  const summaryThirdView = useInView();
+  const summaryFourView = useInView();
+
   const theme = useTheme();
   const smMatch = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
+  useEffect(() => {
+    setRendered(true);
+  }, []);
+
   return (
-    <Container>
-      <TopBar />
+    <Fragment>
+      <TopBar inScroll={inScroll} />
+      {/** Banner */}
       <Banner>
-        <LogoWrap ref={logoInView.ref} inView={logoInView.inView}>
+        <LogoWrap inView={rendered}>
           <Logo>
             <Image src="/logo.svg" alt="Feanut Logo" fill />
           </Logo>
         </LogoWrap>
-        <TitleWrap ref={titleInView.ref} inView={titleInView.inView}>
+        <TitleWrap inView={rendered}>
           <SubTitle>요즘 화젯거리 주제!</SubTitle>
-          <Title>
-            친구들과 함께하는
-            <br style={{ display: smMatch ? "inline-block" : "none" }} /> 소셜
-            투표 서비스
-          </Title>
+          {smMatch && (
+            <Title>
+              <span>
+                친구들과 함께하는
+                <br />
+                <span className="decoration">소셜 투표 서비스</span>
+              </span>
+            </Title>
+          )}
+          {!smMatch && (
+            <Title>
+              <span>
+                친구들과 함께하는{" "}
+                <span className="decoration">소셜 투표 서비스</span>
+              </span>
+            </Title>
+          )}
         </TitleWrap>
-        <Store ref={storeInView.ref} inView={storeInView.inView}>
+        <Store inView={rendered}>
           <a href={constants.dynamicURLLanding} target="_blank">
             <Image
               src="/appstore.png"
@@ -205,23 +387,140 @@ export default function MainTemplate() {
           <StyledButton>피넛 다운로드</StyledButton>
         </Store>
         <AppUsages>
-          <AppUsage ref={appUsageLeftView.ref} inView={appUsageLeftView.inView}>
+          <AppUsage inView={rendered}>
             <Image src="/app-usage-left.png" fill alt="App Usage Left" />
           </AppUsage>
-          <AppUsage
-            ref={appUsageCenterView.ref}
-            inView={appUsageCenterView.inView}
-          >
+          <AppUsage inView={rendered}>
             <Image src="/app-usage-center.png" fill alt="App Usage Center" />
           </AppUsage>
-          <AppUsage
-            ref={appUsageRightView.ref}
-            inView={appUsageRightView.inView}
-          >
+          <AppUsage inView={rendered}>
             <Image src="/app-usage-right.png" fill alt="App Usage Right" />
           </AppUsage>
         </AppUsages>
       </Banner>
-    </Container>
+      {/** Summary */}
+      <Summary>
+        <FeanutBackground>
+          <Image alt="Feanut Background" src={"/feanut-background.svg"} fill />
+        </FeanutBackground>
+        <SummaryContent>
+          <Video>
+            <div className="comment1">
+              <Image alt="Comment 1" src={"/comment1.png"} fill />
+            </div>
+            <div className="comment2">
+              <Image alt="Comment 2" src={"/comment2.png"} fill />
+            </div>
+            <div className="fire">
+              <Image alt="Fire" src={"/fire.png"} fill />
+            </div>
+          </Video>
+          <div>
+            <SummaryText
+              seq="01"
+              ref={summaryFirstView.ref}
+              inView={summaryFirstView.inView}
+            >
+              인기 시리즈부터
+              <br />
+              예능 프로그램까지
+              <br />
+              <span className="primary">넷플릭스 컨텐츠 패러디</span>
+            </SummaryText>
+            <SummaryText
+              seq="02"
+              ref={summarySecondView.ref}
+              inView={summarySecondView.inView}
+            >
+              내 친구를 저격하는
+              <br />
+              <span className="primary">위트있는 주제</span>
+            </SummaryText>
+            <SummaryText
+              seq="03"
+              ref={summaryThirdView.ref}
+              inView={summaryThirdView.inView}
+            >
+              여사친, 남사친에게
+              <br />
+              <span className="primary">몰래 마음 표현하기</span>
+            </SummaryText>
+            <SummaryText
+              seq="04"
+              ref={summaryFourView.ref}
+              inView={summaryFourView.inView}
+            >
+              화젯거리 가득한
+              <br />
+              <span className="primary">투표 컬렉션</span>
+            </SummaryText>
+          </div>
+        </SummaryContent>
+        <a href={constants.dynamicURLLanding} target="_blank">
+          <StyledButtonMedium>피넛 다운로드</StyledButtonMedium>
+        </a>
+      </Summary>
+      {/** Collection */}
+      <Collection>
+        <Title>
+          <span>
+            다양한 주제로 숨겨왔던 나의 마음을
+            <br />
+            표현할 수 있는 <span className="decoration">투표 컬렉션</span>
+          </span>
+        </Title>
+        <Desc>친구들과 서로 투표하고 칭찬하며 더 가까워져 볼까요?</Desc>
+      </Collection>
+      {/** Pull */}
+      <Pull>
+        <Title>
+          <span>
+            누가 <span className="decoration">나를 선택했는지</span> 확인
+          </span>
+        </Title>
+        <Desc>
+          투표하며 얻을 수 있는 피넛을 사용하여
+          <br />
+          누가 나를 투표했는지 확인 해 보세요!
+          <br />이 기회에 친구와 더 가까워질 수도 있잖아요
+        </Desc>
+        <PullWrap>
+          <Image src="/pull.png" alt="Pull" fill />
+        </PullWrap>
+      </Pull>
+      {/** GetInTouch */}
+      <GetInTouch>
+        <Image
+          src={"/get-in-touch.png"}
+          alt="Get In Touch Background"
+          fill
+          style={{ position: "absolute" }}
+        />
+        <GetInTouchContent>
+          <Title>feanut과 함께하는 법!</Title>
+          <Desc>재밌을 것 같은 콘텐츠와 투표를 직접 제안해 주셔도 좋아요</Desc>
+          <a href={constants.feanutInstagramURL} target="_blank">
+            <StyledButtonMediumWhite style={{ marginTop: 20 }}>
+              Instagram
+            </StyledButtonMediumWhite>
+          </a>
+        </GetInTouchContent>
+      </GetInTouch>
+      {/** Faq */}
+      <Faq>
+        <Title>자주 묻는 질문에 대한 답변</Title>
+        <FaqList>
+          <FaqItem question="feanut 서비스란?" />
+          <FaqItem question="친구를 투표하는 방법은?" />
+          <FaqItem question="나를 투표한 친구를 확인하는 방법은?" />
+          <FaqItem question="친구를 추가하는 방법은?" />
+          <FaqItem question="서비스 이용 가격은?" />
+          <FaqItem question="피넛코인이란?" />
+          <FaqItem question="그 외 비즈니스 문의" />
+        </FaqList>
+      </Faq>
+
+      <Footer />
+    </Fragment>
   );
 }

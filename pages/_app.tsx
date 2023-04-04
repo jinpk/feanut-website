@@ -4,6 +4,8 @@ import Head from "next/head";
 import { Fragment } from "react";
 import theme from "@/lib/theme";
 
+import localFont from "next/font/local";
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -20,10 +22,23 @@ export default function App({ Component, pageProps }: AppProps) {
                 margin: 0px;
               }
               a {
-                cursor: pointer;
+                text-decoration: none;
               }
               * {
                 box-sizing: border-box;
+                font-family: "Pretendard-Medium";
+              }
+              @font-face {
+                font-family: "Pretendard-Medium";
+                src: url("fonts/Pretendard-Medium.woff") format("woff");
+              }
+              @font-face {
+                font-family: "Pretendard-SemiBold";
+                src: url("fonts/Pretendard-SemiBold.woff") format("woff");
+              }
+              @font-face {
+                font-family: "Pretendard-Bold";
+                src: url("fonts/Pretendard-Bold.woff") format("woff");
               }
             `}
           />

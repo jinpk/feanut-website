@@ -4,12 +4,17 @@ import { StyledButton } from "./button";
 import Link from "next/link";
 import constants from "@/lib/constants";
 
-const Container = styled.div`
+const Container = styled.div<TopBarProps>`
   position: sticky;
   top: 0;
   display: flex;
+  transition: border-bottom .3s;
+  background-color: ${(props) => props.theme.colors.white};
+  border-bottom: ${(props) => (props.inScroll ? "1.5px" : "0px")} solid
+    ${(props) => props.theme.colors.mediumGrey};
   height: 4.125em;
   align-items: center;
+  z-index: 100;
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     height: auto;
   }
@@ -29,9 +34,13 @@ const StyledNav = styled.nav`
   }
 `;
 
-export const TopBar = () => {
+type TopBarProps = {
+  inScroll?: boolean;
+};
+
+export const TopBar = (props: TopBarProps) => {
   return (
-    <Container>
+    <Container inScroll={props.inScroll}>
       <StyledNav>
         <Link href={"/"}>
           <Image

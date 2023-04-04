@@ -16,7 +16,16 @@ export interface Breakpoints {
   lg: string;
 }
 
+export interface Fonts {
+  pretendar: {
+    bold: string;
+    medium: string;
+    semiBold: string;
+  };
+}
+
 export interface FeanutTheme {
   colors: Colors;
   breakpoints: Breakpoints;
+  fonts: Fonts;
 }
