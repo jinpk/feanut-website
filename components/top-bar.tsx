@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   height: 4.125em;
   align-items: center;
-  @media (max-width: 25em) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     height: auto;
   }
 `;
@@ -21,10 +21,10 @@ const StyledNav = styled.nav`
   max-width: 64em;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 64em) {
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
     padding: 0 1.5625em;
   }
-  @media (max-width: 25em) {
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     padding: 1em;
   }
 `;

@@ -1,7 +1,9 @@
+import { StyledButton } from "@/components/button";
 import { TopBar } from "@/components/top-bar";
+import useMediaQuery from "@/hooks/use-media-query";
 import { InViewProps } from "@/interfaces/emotion";
 import constants from "@/lib/constants";
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
@@ -14,6 +16,9 @@ const Banner = styled.section`
   align-items: center;
   justify-content: center;
   padding-top: 7.875em;
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    padding-top: 2.1875em;
+  }
 `;
 
 const LogoWrap = styled.div<InViewProps>`
@@ -25,23 +30,41 @@ const LogoWrap = styled.div<InViewProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    width: 2.875em;
+    height: 2.875em;
+    border-radius: 10px;
+  }
+
   transition: transform 2s;
   transition-delay: 0.3s;
   transform: ${(props) =>
     props.inView ? "scale(1) translateY(0px)" : "scale(5) translateY(50%)"};
 `;
 
+const Logo = styled.div`
+  position: relative;
+  width: 4.375em;
+  height: 2.25em;
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    width: 2em;
+    height: 2em;
+  }
+`;
+
 const TitleWrap = styled.div<InViewProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   transition: transform 1s;
   transition-delay: 1.3s;
   transform: ${(props) =>
     props.inView ? "scale(1) translateY(0px)" : "scale(0) translateY(10em)"};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
-const SubTitle = styled.h2`
+const SubTitle = styled.span`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 600;
@@ -52,6 +75,10 @@ const SubTitle = styled.h2`
   color: ${(props) => props.theme.colors.black};
   margin-top: 1.5625em;
   margin-bottom: 0;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: 0.75em;
+  }
 `;
 
 const Title = styled.h1`
@@ -66,15 +93,32 @@ const Title = styled.h1`
   text-align: center;
 
   margin-top: 0.4375em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    font-size: 1.625em;
+  }
 `;
 
 const Store = styled.div<InViewProps>`
   display: flex;
+  img {
+    margin: 0 0.8125em;
+  }
+  button {
+    display: none;
+  }
+
   transition: opacity 1s;
   transition-delay: 2.3s;
   opacity: ${(props) => (props.inView ? 1 : 0)};
-  img {
-    margin: 0 0.8125em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    a {
+      display: none;
+    }
+    button {
+      display: flex;
+    }
   }
 `;
 
@@ -97,7 +141,11 @@ const AppUsage = styled.div<InViewProps>`
 `;
 
 const TextLineWrap = styled.span`
-  margin-left: 0.3em;
+  text-decoration: underline;
+  text-decoration-color: ${(props) => props.theme.colors.primary};
+`;
+
+/** margin-left: 0.3em;
   position: relative;
   :after {
     bottom: 0px;
@@ -109,11 +157,7 @@ const TextLineWrap = styled.span`
     border-bottom: 10px solid ${(props) => props.theme.colors.primary}BF;
     transform: rotate(-1deg);
     border-radius: 20px;
-  }
-`;
-
-const logoInView = css``;
-
+  } */
 export default function MainTemplate() {
   const logoInView = useInView();
   const titleInView = useInView();
@@ -121,17 +165,24 @@ export default function MainTemplate() {
   const appUsageLeftView = useInView();
   const appUsageCenterView = useInView();
   const appUsageRightView = useInView();
+  const theme = useTheme();
+  const smMatch = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
   return (
     <Container>
       <TopBar />
       <Banner>
         <LogoWrap ref={logoInView.ref} inView={logoInView.inView}>
-          <Image src="/logo.svg" width={69} height={35} alt="Feanut Logo" />
+          <Logo>
+            <Image src="/logo.svg" alt="Feanut Logo" fill />
+          </Logo>
         </LogoWrap>
         <TitleWrap ref={titleInView.ref} inView={titleInView.inView}>
           <SubTitle>요즘 화젯거리 주제!</SubTitle>
           <Title>
-            친구들과 함께하는<TextLineWrap>소셜 투표 서비스</TextLineWrap>
+            친구들과 함께하는
+            <br style={{ display: smMatch ? "inline-block" : "none" }} /> 소셜
+            투표 서비스
           </Title>
         </TitleWrap>
         <Store ref={storeInView.ref} inView={storeInView.inView}>
@@ -151,6 +202,7 @@ export default function MainTemplate() {
               alt="Play Store"
             />
           </a>
+          <StyledButton>피넛 다운로드</StyledButton>
         </Store>
         <AppUsages>
           <AppUsage ref={appUsageLeftView.ref} inView={appUsageLeftView.inView}>

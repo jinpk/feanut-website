@@ -9,6 +9,14 @@ export interface Colors {
   blue: string;
 }
 
+export interface Breakpoints {
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+}
+
 export interface FeanutTheme {
   colors: Colors;
+  breakpoints: Breakpoints;
 }

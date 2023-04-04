@@ -1,4 +1,4 @@
-import { Colors, FeanutTheme } from "@/interfaces/theme";
+import { Breakpoints, Colors, FeanutTheme } from "@/interfaces/theme";
 
 const colors: Colors = {
   primary: "#FF9900",
@@ -11,8 +11,16 @@ const colors: Colors = {
   blue: "#3478F6",
 };
 
+const breakpoints: Breakpoints = {
+  xs: "36em",
+  sm: "48em",
+  md: "64em",
+  lg: "90em",
+};
+
 const theme: FeanutTheme = {
   colors,
+  breakpoints,
 };
 
 export default theme;
