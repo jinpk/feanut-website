@@ -668,11 +668,9 @@ export default function MainTemplate(props: MainTemplateProps) {
               ref={summaryFirstView.ref}
               inView={summaryFirstView.inView}
             >
-              인기 시리즈부터
+              화젯거리 가득한
               <br />
-              예능 프로그램까지
-              <br />
-              <span className="primary">넷플릭스 컨텐츠 패러디</span>
+              <span className="primary">투표 컬렉션</span>
             </SummaryText>
             <SummaryText
               seq="02"
@@ -697,9 +695,9 @@ export default function MainTemplate(props: MainTemplateProps) {
               ref={summaryFourView.ref}
               inView={summaryFourView.inView}
             >
-              화젯거리 가득한
+              내 친구는 어떤 사람일까?
               <br />
-              <span className="primary">투표 컬렉션</span>
+              <span className="primary">인기 지표 프로필</span>
             </SummaryText>
           </div>
         </SummaryContent>
