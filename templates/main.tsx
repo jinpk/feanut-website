@@ -1,19 +1,15 @@
 import {
-  StyledButton,
   StyledButtonMedium,
   StyledButtonMediumWhite,
 } from "@/components/button";
 import { FaqItem } from "@/components/faq-item";
 import { Footer } from "@/components/footer";
-import { PollCard } from "@/components/poll-card";
 import { TopBar } from "@/components/top-bar";
 import useDocumentScroll from "@/hooks/use-document-scroll";
-import useMediaQuery from "@/hooks/use-media-query";
 import { Faq } from "@/interfaces/docs";
 import { InViewProps } from "@/interfaces/emotion";
 import { Poll } from "@/interfaces/poll";
 import constants from "@/lib/constants";
-import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
@@ -520,21 +516,12 @@ export default function MainTemplate(props: MainTemplateProps) {
 
   const pullScreenInView = useInView();
 
-  const theme = useTheme();
-
   const firstCollectionRef = useRef<HTMLDivElement>(null);
   const secondCollectionRef = useRef<HTMLDivElement>(null);
   const thirdCollectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setRendered(true);
-    document.body.style.overflow = "hidden";
-    let tm = setTimeout(() => {
-      document.body.style.overflow = "auto";
-    }, 2500);
-    return () => {
-      clearTimeout(tm);
-    };
   }, []);
 
   useEffect(() => {

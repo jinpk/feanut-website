@@ -1,12 +1,26 @@
 import type { AppProps } from "next/app";
 import { Global, ThemeProvider, css } from "@emotion/react";
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import theme from "@/lib/theme";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+const firebaseConfig = {
+  apiKey: "AIzaSyDMxONUvb_R-iQwYBLohOWSvuO4AYSlMC4",
+  authDomain: "feanut.firebaseapp.com",
+  projectId: "feanut",
+  storageBucket: "feanut.appspot.com",
+  messagingSenderId: "619040145320",
+  appId: "1:619040145320:web:0d3e971f165bafe652e79d",
+  measurementId: "G-BTPE8SW96B",
+};
 
-import localFont from "next/font/local";
+const app = initializeApp(firebaseConfig);
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const analytics = getAnalytics(app);
+  }, []);
   return (
     <>
       <Head>
