@@ -5,6 +5,7 @@ import { Fragment, useEffect } from "react";
 import theme from "@/lib/theme";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDMxONUvb_R-iQwYBLohOWSvuO4AYSlMC4",
   authDomain: "feanut.firebaseapp.com",

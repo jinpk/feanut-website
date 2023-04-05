@@ -492,11 +492,13 @@ const FaqList = styled.div`
   @media (max-width: ${(props) => props.theme.breakpoints.md}) {
     margin-left: 2em;
     margin-right: 2em;
+    width: calc(100% - 4em);
   }
 
   @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
     margin-left: 1em;
     margin-right: 1em;
+    width: calc(100% - 2em);
   }
 `;
 
