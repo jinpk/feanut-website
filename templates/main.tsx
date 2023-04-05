@@ -27,6 +27,8 @@ const Banner = styled.section`
   align-items: center;
   justify-content: center;
   padding-top: 7.875em;
+  max-width: 100vw;
+  overflow: hidden;
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     padding-top: 2.1875em;
   }
@@ -85,7 +87,7 @@ const SubTitle = styled.span`
   margin-top: 1.5625em;
   margin-bottom: 0;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
     font-size: 0.75em;
   }
 `;
@@ -102,13 +104,17 @@ const Title = styled.h1`
 
   margin-top: 0.4375em;
 
-  br {
+  .rb {
     display: none;
   }
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
     font-size: 1.625em;
-    br {
+    .rb {
       display: block;
+    }
+
+    .lb {
+      display: none;
     }
   }
 
@@ -174,7 +180,7 @@ const AppUsage = styled.div<InViewProps>`
     object-fit: contain;
   }
 
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
     margin: 0px 0.3em;
     width: 9.25em;
     height: 18.75em;
@@ -190,6 +196,18 @@ const Summary = styled.section`
   flex-direction: column;
   align-items: center;
   padding-bottom: 6.5em;
+  max-width: 100vw;
+  overflow: hidden;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    padding-left: 4em;
+    padding-right: 4em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    padding-top: 6.25em;
+    padding-bottom: 6.25em;
+  }
 `;
 
 const FeanutBackground = styled.div`
@@ -214,9 +232,11 @@ const SummaryContent = styled.div`
   padding-bottom: 6.5em;
   max-width: 52.1875em;
 
-  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
     flex-direction: column;
     align-items: center;
+    padding-top: 6.25em;
+    padding-bottom: 6.25em;
   }
 `;
 
@@ -241,6 +261,25 @@ const SummaryText = styled.span<InViewProps & { seq: string }>`
     font-size: 15px;
     left: -1.875em;
     top: -0.125em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    margin-top: 1.5625em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    text-align: center;
+    margin-top: 2.5em;
+    :first-of-type {
+      margin-top: 3.12em;
+    }
+    :before {
+      content: "${(props) => props.seq}";
+      position: absolute;
+      font-size: 15px;
+      top: -30px;
+      left: calc(50% - 9px);
+    }
   }
 
   transition: transform 0.5s;
@@ -283,6 +322,11 @@ const Video = styled.div`
     height: 4.6em;
   }
 
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    width: 18.5625em;
+    height: 27.8125em;
+  }
+
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
     width: 15.125em;
     height: 22.25em;
@@ -295,6 +339,9 @@ const Collection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  max-width: 100vw;
+  overflow: hidden;
 `;
 
 const Desc = styled.div`
@@ -302,6 +349,10 @@ const Desc = styled.div`
   font-size: 1.25em;
   text-align: center;
   color: ${(props) => props.theme.colors.black};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    font-size: 0.8125em;
+  }
 `;
 
 const CollectionList = styled.div`
@@ -316,8 +367,11 @@ const Pull = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 9.375em;
+  padding: 9.375em 0px;
   padding-top: 7.8125em;
+
+  max-width: 100vw;
+  overflow: hidden;
 `;
 
 const PullWrap = styled.div<InViewProps>`
@@ -325,6 +379,11 @@ const PullWrap = styled.div<InViewProps>`
   width: 26.125em;
   height: 30.75em;
   margin-top: 3.15em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    width: 18.25em;
+    height: 21.5em;
+  }
 
   transition: transform 0.5s;
   transform: ${(props) =>
@@ -340,7 +399,15 @@ const PullCommentImage = styled.div`
   img {
     object-fit: contain;
   }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    left: -3em;
+    bottom: 4.5em;
+    width: 11em;
+    height: 2.5em;
+  }
 `;
+
 const PullSecretImage = styled.div`
   position: absolute;
   width: 4.5625em;
@@ -362,6 +429,7 @@ const PullLockImage = styled.div`
     object-fit: contain;
   }
 `;
+
 const PullHandImage = styled.div`
   position: absolute;
   width: 5.9375em;
@@ -381,6 +449,14 @@ const GetInTouch = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    object-fit: cover;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    min-height: 13.6875em;
+  }
 `;
 
 const GetInTouchContent = styled.div`
@@ -400,16 +476,32 @@ const Faq = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   padding-bottom: 7.8em;
+  margin-bottom: 5em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    padding: 6.25em 0px;
+  }
 `;
 
 const FaqList = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
-  width: 100%;
+  margin: 0px auto;
+  align-self: stretch;
+  margin-top: 2em;
   max-width: 53.5em;
+  width: 100%;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
 `;
 
 type MainTemplateProps = {
@@ -513,7 +605,7 @@ export default function MainTemplate(props: MainTemplateProps) {
           <SubTitle>요즘 화젯거리 주제!</SubTitle>
           <Title>
             <span>
-              친구들과 함께하는 <br />
+              친구들과 함께하는 <br className="rb" />
               <span className="decoration">소셜 투표 서비스</span>
             </span>
           </Title>
@@ -630,14 +722,17 @@ export default function MainTemplate(props: MainTemplateProps) {
       <Collection>
         <Title>
           <span>
-            다양한 주제로 숨겨왔던 나의 마음을
-            <br />
-            표현할 수 있는 <span className="decoration">투표 컬렉션</span>
+            다양한 주제로 숨겨왔던 <br className="rb" />
+            나의 마음을 <br className="lb" />
+            표현할 수 있는
+            <br className="rb" />{" "}
+            <span className="decoration">투표 컬렉션</span>
           </span>
         </Title>
         <Desc>친구들과 서로 투표하고 칭찬하며 더 가까워져 볼까요?</Desc>
 
-        <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
+        {/**
+           <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
           {props.polls.map((x, i) => {
             return (
               <PollCard
@@ -672,6 +767,7 @@ export default function MainTemplate(props: MainTemplateProps) {
             );
           })}
         </CollectionList>
+         */}
       </Collection>
       {/** Pull */}
       <Pull>

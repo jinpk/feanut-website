@@ -7,6 +7,10 @@ const Container = styled.main`
   width: 100vw;
   display: flex;
   padding: 3em 0px;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+    padding: 2em 1em;
+  }
 `;
 
 const Content = styled.section`

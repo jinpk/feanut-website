@@ -15,11 +15,22 @@ const StyledFooter = styled.div`
   padding: 1.25em 0px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    margin: 0px 1em;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Copyright = styled.span`
   color: ${(props) => props.theme.colors.darkGrey};
   font-size: 0.875em;
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    margin-bottom: 0.5em;
+  }
 `;
 
 const LinkText = styled.span`

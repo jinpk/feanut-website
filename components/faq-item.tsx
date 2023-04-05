@@ -24,12 +24,21 @@ const Header = styled.button`
   cursor: pointer;
   font-size: 16px;
   padding-right: 1.125em;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    padding-top: 0.875em;
+    padding-bottom: 0.875em;
+  }
 `;
 
 const Question = styled.span`
   font-size: 1.5em;
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.pretendar.semiBold};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    font-size: 1.125em;
+  }
 `;
 
 const Content = styled.div<{ opened: string }>`
