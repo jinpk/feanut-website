@@ -1,16 +1,9 @@
 ---
 title: 친구를 추가하는 방법은?
-sequence: 4
+sequence: 3
 ---
 
-hahahahahahahahaha
 
-hahahahahahahahaha
+프로필 > 친구 관리 화면에서 연락처를 동기화하여 친구를 추가할 수 있습니다.
 
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
+연락처의 모든 목록이 동기화되지만 원하지 않는 친구가 있으면 “숨김” 기능으로 투표 선택 대상에서 제외할 수 있습니다.

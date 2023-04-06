@@ -3,14 +3,6 @@ title: 친구를 투표하는 방법은?
 sequence: 2
 ---
 
-hahahahahahahahaha
+앱 메인화면에서 내 친구들을 투표할 수 있습니다.
 
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
+한 번에 12개의 투표가 준비되어 있으며 하루 최대 3번까지 참여할 수 있습니다.

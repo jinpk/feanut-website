@@ -53,6 +53,13 @@ const Icon = styled(Image)<{ opened: string }>`
   transition: all 0.5s ease;
 `;
 
+const Margin = styled.div`
+  height: 1.75em;
+  @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+    height: 0.875em;
+  }
+`;
+
 export const FaqItem = (props: FaqItemProps) => {
   const [opened, setOpened] = useState(false);
 
@@ -74,6 +81,7 @@ export const FaqItem = (props: FaqItemProps) => {
       </Header>
       <Content opened={String(opened)}>
         <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
+        <Margin />
       </Content>
     </Container>
   );

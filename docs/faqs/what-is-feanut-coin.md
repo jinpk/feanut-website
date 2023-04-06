@@ -3,14 +3,6 @@ title: 피넛코인이란?
 sequence: 5
 ---
 
-hahahahahahahahaha
+투표에서 나를 선택한 친구가 누군지 알기 위해서는 “피넛코인”을 지불하여 친구의 프로필을 확인할 수 있습니다.
 
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
+피넛 코인은 앱 내 프로필 > 충전하기 화면에서 구매할 수 있습니다.

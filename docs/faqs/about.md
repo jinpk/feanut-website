@@ -3,14 +3,8 @@ title: feanut 서비스란?
 sequence: 1
 ---
 
-hahahahahahahahaha
+feanut은 친구들과 다양한 주제로 서로 투표할 수 있는 <span color='#FF9900'>소셜 투표 서비스</span>입니다. 
 
-hahahahahahahahaha
+요즘 화젯거리 가득한 주제부터 관심을 표현할 수 있는 투표까지.
 
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
-
-hahahahahahahahaha
+친구에게 몰래 마음을 표현할 수 있고 누가 나에게 관심이 있는지도 알 수 있겠죠 ?

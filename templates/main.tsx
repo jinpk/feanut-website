@@ -719,7 +719,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         <Desc>친구들과 서로 투표하고 칭찬하며 더 가까워져 볼까요?</Desc>
 
         {/**
-           <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
+        <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
           {props.polls.map((x, i) => {
             return (
               <PollCard

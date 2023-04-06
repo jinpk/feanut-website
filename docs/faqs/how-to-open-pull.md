@@ -1,16 +1,14 @@
 ---
 title: 나를 투표하는 친구를 확인하는 방법은?
-sequence: 3
+sequence: 4
 ---
 
-hahahahahahahahaha
+앱 내 수신함 화면에서 내가 선택된 전체 투표 목록을 확인할 수 있습니다.
 
-hahahahahahahahaha
 
-hahahahahahahahaha
+“자세히” 버튼을 눌러 이동한 투표 상세 화면의 “투표한 친구 확인하기” 기능으로 
 
-hahahahahahahahaha
+피넛코인을 사용하여 나를 투표한 친구가 누구인지 확인할 수 있어요!
 
-hahahahahahahahaha
 
-hahahahahahahahaha
+이 기회에 그 친구와 더 가까워질 수도 있잖아요.:)
