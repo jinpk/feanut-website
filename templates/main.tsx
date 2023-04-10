@@ -718,7 +718,7 @@ export default function MainTemplate(props: MainTemplateProps) {
             <span className="decoration">투표 컬렉션</span>
           </span>
         </Title>
-        <Desc>친구들과 서로 투표하고 칭찬하며 더 가까워져 볼까요?</Desc>
+        <Desc>친구들과 서로 마음을 표현하고 칭찬하며 더 가까워져 볼까요?</Desc>
 
         {/**
         <CollectionList style={{ marginTop: 50 }} ref={firstCollectionRef}>
@@ -768,7 +768,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         <Desc>
           투표하며 얻을 수 있는 피넛을 사용하여
           <br />
-          누가 나를 투표했는지 확인 해 보세요!
+          누가 나를 투표했는지 확인해 보세요!
           <br />이 기회에 친구와 더 가까워질 수도 있잖아요
         </Desc>
         <PullWrap ref={pullScreenInView.ref} inView={pullScreenInView.inView}>
