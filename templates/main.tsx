@@ -600,7 +600,7 @@ export default function MainTemplate(props: MainTemplateProps) {
           </Title>
         </TitleWrap>
         <Store inView={rendered}>
-          <a href={constants.dynamicURLLanding} target="_blank">
+          <a href={constants.appStoreURL} target="_blank">
             <Image
               src="/appstore.png"
               width={146}
@@ -608,7 +608,7 @@ export default function MainTemplate(props: MainTemplateProps) {
               alt="App Store"
             />
           </a>
-          <a href={constants.dynamicURLLanding} target="_blank">
+          <a href={constants.playStoreURL} target="_blank">
             <Image
               src="/googleplay.png"
               width={146}
@@ -616,7 +616,9 @@ export default function MainTemplate(props: MainTemplateProps) {
               alt="Play Store"
             />
           </a>
-          <StyledButtonMedium>앱 열기</StyledButtonMedium>
+          <a href={constants.dynamicURLLanding}>
+            <StyledButtonMedium>앱 열기</StyledButtonMedium>
+          </a>
         </Store>
         <AppUsages>
           <AppUsage inView={rendered}>
