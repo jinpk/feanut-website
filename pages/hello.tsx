@@ -1,3 +1,5 @@
+import constants from "@/lib/constants";
+
 export default function Hello() {
   return <div />;
 }
@@ -7,7 +9,7 @@ export const getServerSideProps = async () => {
     props: {},
     redirect: {
       permanent: false,
-      destination: "https://feanut.page.link/hello",
+      destination: constants.helloURL,
     },
   };
 };
