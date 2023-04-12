@@ -136,15 +136,15 @@ const Store = styled.div<InViewProps>`
   img {
     margin: 0 0.8125em;
   }
-  button {
+  .mobile-a {
     display: none;
   }
 
   @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
-    a {
+    .pc-a {
       display: none;
     }
-    button {
+    .mobile-a {
       display: flex;
     }
   }
@@ -600,7 +600,7 @@ export default function MainTemplate(props: MainTemplateProps) {
           </Title>
         </TitleWrap>
         <Store inView={rendered}>
-          <a href={constants.appStoreURL} target="_blank">
+          <a href={constants.appStoreURL} className="pc-a" target="_blank">
             <Image
               src="/appstore.png"
               width={146}
@@ -608,7 +608,7 @@ export default function MainTemplate(props: MainTemplateProps) {
               alt="App Store"
             />
           </a>
-          <a href={constants.playStoreURL} target="_blank">
+          <a href={constants.playStoreURL} className="pc-a" target="_blank">
             <Image
               src="/googleplay.png"
               width={146}
@@ -616,7 +616,7 @@ export default function MainTemplate(props: MainTemplateProps) {
               alt="Play Store"
             />
           </a>
-          <a href={constants.dynamicURLLanding}>
+          <a href={constants.dynamicURLLanding} className="mobile-a">
             <StyledButtonMedium>앱 열기</StyledButtonMedium>
           </a>
         </Store>
