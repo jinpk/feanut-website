@@ -26,7 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="친구들과 함꼐하는 소셜 투표 서비스" />
+        <meta
+          name="description"
+          content="마음을 전하는 3초, feanut에서 만나요!"
+        />
         <link rel="icon" href="/logo.svg" />
       </Head>
       <ThemeProvider theme={theme}>
