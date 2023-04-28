@@ -291,6 +291,8 @@ const Video = styled.div`
   border-radius: 15px;
   width: 17.815em;
   height: 31.8125em;
+  cursor: pointer;
+
   img {
     object-fit: contain;
   }
@@ -520,8 +522,6 @@ export default function MainTemplate(props: MainTemplateProps) {
   const inScroll = useDocumentScroll();
   const [rendered, setRendered] = useState(false);
 
-  const [mute, setMute] = useState(true);
-
   const summaryFirstView = useInView();
   const summarySecondView = useInView();
   const summaryThirdView = useInView();
@@ -665,20 +665,15 @@ export default function MainTemplate(props: MainTemplateProps) {
           <Image alt="Feanut Background" src={"/feanut-background.svg"} fill />
         </FeanutBackground>
         <SummaryContent>
-          <Video>
-            <video
-              autoPlay
-              muted={mute}
-              onMouseOver={() => {
-                setMute(false);
-              }}
-              onMouseLeave={() => {
-                setMute(true);
-              }}
-              loop
-              width={"100%"}
-              height={"100%"}
-            >
+          <Video
+            onClick={() => {
+              window.open(
+                "https://www.youtube.com/shorts/CbSccYhRc3g",
+                "_blank"
+              );
+            }}
+          >
+            <video autoPlay muted loop width={"100%"} height={"100%"}>
               <source src="/intro.mp4" type="video/mp4" />
             </video>
             <div className="comment1">
