@@ -117,16 +117,19 @@ const Title = styled.h1`
   .decoration {
     position: relative;
     :after {
+      z-index: -1;
       border-bottom: 10px solid ${(props) => props.theme.colors.primary + "BF"};
       border-radius: 20px;
       position: absolute;
       bottom: 0px;
-      z-index: 1;
       right: 0px;
       left: 0px;
       display: block;
-      transform: rotate(-1deg);
+      transform: rotate(-0.5deg);
       content: "";
+      @media (max-width: ${(props) => props.theme.breakpoints.xs}) {
+        border-bottom: 7px solid ${(props) => props.theme.colors.primary + "BF"};
+      }
     }
   }
 `;
@@ -286,12 +289,18 @@ const SummaryText = styled.span<InViewProps & { seq: string }>`
 const Video = styled.div`
   position: relative;
   border-radius: 15px;
-  background-color: ${(props) => props.theme.colors.black};
-  width: 21.5625em;
+  width: 17.815em;
   height: 31.8125em;
-
   img {
     object-fit: contain;
+  }
+
+  video {
+    border-radius: 15px;
+    source {
+      border-radius: 15px;
+    }
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
   }
 
   .comment1 {
@@ -511,6 +520,8 @@ export default function MainTemplate(props: MainTemplateProps) {
   const inScroll = useDocumentScroll();
   const [rendered, setRendered] = useState(false);
 
+  const [mute, setMute] = useState(true);
+
   const summaryFirstView = useInView();
   const summarySecondView = useInView();
   const summaryThirdView = useInView();
@@ -591,11 +602,12 @@ export default function MainTemplate(props: MainTemplateProps) {
           </Logo>
         </LogoWrap>
         <TitleWrap inView={rendered}>
-          <SubTitle>요즘 화젯거리 주제!</SubTitle>
+          <SubTitle>feanut</SubTitle>
           <Title>
             <span>
-              친구들과 함께하는 <br className="rb" />
-              <span className="decoration">소셜 투표 서비스</span>
+              마음을 전하는 <span className="decoration">3초</span>
+              <br />
+              feanut에서 만나요!
             </span>
           </Title>
         </TitleWrap>
@@ -654,6 +666,21 @@ export default function MainTemplate(props: MainTemplateProps) {
         </FeanutBackground>
         <SummaryContent>
           <Video>
+            <video
+              autoPlay
+              muted={mute}
+              onMouseOver={() => {
+                setMute(false);
+              }}
+              onMouseLeave={() => {
+                setMute(true);
+              }}
+              loop
+              width={"100%"}
+              height={"100%"}
+            >
+              <source src="/intro.mp4" type="video/mp4" />
+            </video>
             <div className="comment1">
               <Image alt="Comment 1" src={"/comment1.png"} fill />
             </div>

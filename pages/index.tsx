@@ -14,7 +14,7 @@ export default function Home(props: HomeProps) {
   return (
     <>
       <Head>
-        <title>소셜 투표 서비스 - feanut</title>
+        <title>마음을 전하는 3초 - feanut</title>
       </Head>
       <MainTemplate faqs={props.faqs} polls={props.polls} />
     </>
