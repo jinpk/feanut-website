@@ -8,6 +8,11 @@ const nextConfig = {
         destination: "https://feanut.page.link/hello",
         permanent: true,
       },
+      {
+        source: "/referral",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };
