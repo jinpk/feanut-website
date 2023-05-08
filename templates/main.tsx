@@ -673,7 +673,16 @@ export default function MainTemplate(props: MainTemplateProps) {
               );
             }}
           >
-            <video autoPlay muted loop width={"100%"} height={"100%"}>
+            <video
+              autoPlay
+              webkit-playsinline
+              webkit-playsInline
+              playsInline
+              muted
+              loop
+              width={"100%"}
+              height={"100%"}
+            >
               <source src="/intro.mp4" type="video/mp4" />
             </video>
             <div className="comment1">
